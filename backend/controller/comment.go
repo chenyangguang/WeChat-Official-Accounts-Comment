@@ -26,9 +26,9 @@ func GetAllComments(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
-		"code":          0,
-		"message":       "Success",
-		"data": comments,
+		"code":    0,
+		"message": "Success",
+		"data":    comments,
 	})
 }
 
@@ -86,8 +86,8 @@ func UpdateComment(ctx *gin.Context) {
 		})
 		return
 	}
-	istop,_ := strconv.Atoi(isTop)
-	comment.IsTop =istop
+	istop, _ := strconv.Atoi(isTop)
+	comment.IsTop = istop
 	err = CommentDao.UpdateComment(comment)
 	if err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
@@ -107,24 +107,21 @@ func DeleteComment(ctx *gin.Context) {
 	idx, _ := strconv.ParseInt(id, 10, 64)
 	var comment dao.Comment
 	var err error
+	response := gin.H{}
+	defer ctx.JSON(http.StatusOK, response)
+
 	if comment, err := CommentDao.GetCommentByID(idx); err != nil || comment == nil {
-		ctx.JSON(http.StatusOK, gin.H{
-			"code":    1003,
-			"message": "Record not found",
-		})
+		response["code"] = 1003
+		response["message"] = "Record not found"
 		return
 	}
 	err = CommentDao.Delete(&comment)
 	if err != nil {
-		ctx.JSON(1005, gin.H{
-			"code":    1006,
-			"message": "Delete comment fail.",
-		})
-	} else {
-		ctx.JSON(http.StatusOK, gin.H{
-			"code":    0,
-			"message": "Delete comment success",
-		})
+		response["code"] = 1006
+		response["message"] = "Delete comment fail."
+		return
 	}
+	response["code"] = 0
+	response["message"] = "Delete comment success."
 
 }

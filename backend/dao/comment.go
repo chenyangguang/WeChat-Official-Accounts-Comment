@@ -56,7 +56,7 @@ func (c Comment) UpdateComment(comment *Comment) (err error) {
 	if comment == nil {
 		return
 	}
-	if err := load.Conn.Model(&Comment{}).Update(&comment).Error; err != nil {
+	if err := load.Conn.Model(&Comment{}).Where("id = ?", comment.ID).Update(&comment).Error; err != nil {
 		return err
 	}
 	return nil
