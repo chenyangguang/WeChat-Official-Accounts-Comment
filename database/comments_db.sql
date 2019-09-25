@@ -38,3 +38,4 @@ KEY (`comment_uid`) USING BTREE
 
 
 
+alter table comments change `deleted_at` `deleted_at` timestamp comment '删除时间';

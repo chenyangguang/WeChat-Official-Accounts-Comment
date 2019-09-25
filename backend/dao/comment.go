@@ -36,8 +36,8 @@ func (c Comment) GetCommentByID(id int64) (*Comment, error) {
 	}
 }
 
-// AddComment add a new comment record
-func (c Comment) AddComment(commentUid, articleId, content string, parentId int) error {
+// Create add a new comment record
+func (c Comment) Create(commentUid, articleId, content string, parentId int) error {
 	comment := Comment{
 		Content:    strings.TrimSpace(content),
 		ArticleId:  articleId,
@@ -48,5 +48,27 @@ func (c Comment) AddComment(commentUid, articleId, content string, parentId int)
 		return err
 	}
 
+	return nil
+}
+
+// Update update comment
+func (c Comment) UpdateComment(comment *Comment) (err error) {
+	if comment == nil {
+		return
+	}
+	if err := load.Conn.Model(&Comment{}).Update(&comment).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+// Delete delete comment soft
+func (c Comment) Delete(comment *Comment) (err error) {
+	if comment == nil {
+		return
+	}
+	if err := load.Conn.Delete(&comment).Error; err != nil {
+		return err
+	}
 	return nil
 }

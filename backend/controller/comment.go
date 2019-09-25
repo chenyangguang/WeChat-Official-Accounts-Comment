@@ -12,6 +12,9 @@ import (
 
 func GetAllComments(ctx *gin.Context) {
 	articleId := strings.TrimSpace(ctx.Query("article_id"))
+	log.Println("===")
+
+	log.Println(articleId)
 	comments, err := CommentDao.GetComments(articleId)
 	if err != nil {
 		log.Println(err)
@@ -25,7 +28,7 @@ func GetAllComments(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"code":          0,
 		"message":       "Success",
-		"comment_lists": comments,
+		"data": comments,
 	})
 }
 
@@ -33,7 +36,6 @@ func GetCommentById(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idx, _ := strconv.ParseInt(id, 10, 64)
 
-	var comment dao.Comment
 	if comment, err := CommentDao.GetCommentByID(idx); err != nil || comment == nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    1001,
@@ -41,27 +43,29 @@ func GetCommentById(ctx *gin.Context) {
 			"data":    nil,
 		})
 		return
+	} else {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    0,
+			"meesage": "Get record success.",
+			"data":    comment,
+		})
 	}
-	ctx.JSON(http.StatusOK, gin.H{
-		"code":    0,
-		"meesage": "Get record success.",
-		"data":    comment,
-	})
 
 }
 
-func AddComment(ctx *gin.Context) {
+func CreateComment(ctx *gin.Context) {
 	commentUid := ctx.PostForm("comment_uid")
 	articleId := ctx.PostForm("article_id")
 	content := ctx.PostForm("content")
 	parentId := ctx.GetInt("parent_id")
 
 	// todo check parent comment id
-	if err := CommentDao.AddComment(commentUid, articleId, content, parentId); err != nil {
+	if err := CommentDao.Create(commentUid, articleId, content, parentId); err != nil {
 		log.Println("Create comment fail", err)
 		ctx.JSON(1001, gin.H{
 			"message": "Create comment fail",
 		})
+		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
@@ -69,72 +73,58 @@ func AddComment(ctx *gin.Context) {
 	})
 }
 
-/*
-	func (c *CommentController) UpdateComment(ctx *gin.Context) {
-		id := ctx.Param("id")
-		var comment Comment
-		if result := model.Where("id = ? ", id).First(&comment); result.Error != nil || !result.RecordNotFound() {
-			ctx.AbortWithStatus(404)
-		}
+func UpdateComment(ctx *gin.Context) {
+	id := ctx.Param("id")
+	idx, _ := strconv.ParseInt(id, 10, 64)
+	isTop := ctx.Query("is_top")
 
-		ctx.BindJSON(&comment)
-		if err := model.Save(&comment).Error; err != nil {
-			ctx.JSON(1005, gin.H{
-				"message": "Update comment fail.",
-			})
-		} else {
-			ctx.JSON(http.StatusOK, gin.H{
-				"message": "Update comment success",
-			})
-		}
-	}
-
-	func (c *CommentController) DeleteCommentByID(ctx *gin.Context) {
-		id := ctx.Param("id")
-		var comment Comment
-		if result := model.Where("id = ? ", id).First(&comment); result.Error != nil || !result.RecordNotFound() {
-			ctx.AbortWithStatus(404)
-		}
-
-		if err := model.Delete(&comment).Error; err != nil {
-			ctx.JSON(1005, gin.H{
-				"message": "Delete comment fail.",
-			})
-		} else {
-			ctx.JSON(http.StatusOK, gin.H{
-				"message": "Delete comment success",
-			})
-		}
-
-	}
-
-	/*
-
-
-		r.DELETE("/comment/:id", func(c *gin.Context) {
-			id := c.Param("id")
-			var comment Comment
-			if result := model.Where("id = ? ", id).First(&comment); result.Error != nil || !result.RecordNotFound() {
-				c.AbortWithStatus(404)
-			}
-
-			if err := model.Delete(&comment).Error; err != nil {
-				c.JSON(1005, gin.H{
-					"message": "Delete comment fail.",
-				})
-			} else {
-				c.JSON(http.StatusOK, gin.H{
-					"message": "Delete comment success",
-				})
-			}
-
+	comment, err := CommentDao.GetCommentByID(idx)
+	if err != nil || comment == nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    1003,
+			"message": "Record not found",
 		})
-		// todo 留言置顶
+		return
+	}
+	istop,_ := strconv.Atoi(isTop)
+	comment.IsTop =istop
+	err = CommentDao.UpdateComment(comment)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    1005,
+			"message": "Update comment fail",
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"code":    0,
+		"message": "Update comment success",
+	})
+}
 
-		// 回复也作为
+func DeleteComment(ctx *gin.Context) {
+	id := ctx.Param("id")
+	idx, _ := strconv.ParseInt(id, 10, 64)
+	var comment dao.Comment
+	var err error
+	if comment, err := CommentDao.GetCommentByID(idx); err != nil || comment == nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    1003,
+			"message": "Record not found",
+		})
+		return
+	}
+	err = CommentDao.Delete(&comment)
+	if err != nil {
+		ctx.JSON(1005, gin.H{
+			"code":    1006,
+			"message": "Delete comment fail.",
+		})
+	} else {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    0,
+			"message": "Delete comment success",
+		})
+	}
 
-		// todo 点赞
-
-		// todo 关注
-
-*/
+}

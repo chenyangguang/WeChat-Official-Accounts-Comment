@@ -1,5 +1,5 @@
 # WeChat-Official-Accounts-Comment
-golang 实现微信公众号留言功能后台
+gin 实现一个简单的 mvc 的 微信公众号留言功能后台, 增\删\改\查.  MySQL存储.
 
 ## Install
 
