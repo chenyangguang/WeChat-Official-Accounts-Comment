@@ -1,20 +1,21 @@
 package dao
 
 import (
+	"strings"
+
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load"
 	"github.com/jinzhu/gorm"
-	"strings"
 )
 
 // Comment 留言
 type Comment struct {
 	gorm.Model
-	Content    string `json:"content" form:"content"`
-	ArticleId  string `json:"article_id" form:"article_id"`
-	CommentUid string `json:"comment_uid" form:"comment_uid"`
-	ParentId   int    `json:"parent_id" form:"parent_id"`
-	IsTop      int    `json:"is_top" form:"is_top"`
-	Status     int    `json:"status" form:"status"`
+	Content    string `form:"content"`
+	ArticleId  string `form:"article_id"`
+	CommentUid string `form:"comment_uid"`
+	ParentId   int    `form:"parent_id"`
+	IsTop      int    `form:"is_top"`
+	Status     int    `form:"status"`
 }
 
 // GetComments Search comment by article_id
