@@ -3,9 +3,19 @@ package router
 import (
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/controller"
 	"github.com/gin-gonic/gin"
+	"os"
+	"io"
+	"log"
 )
 
 func InitRouter() *gin.Engine {
+
+	logFile, err := os.Create("gin.log")
+	if err != nil {
+		panic(err)
+	}
+	gin.DefaultWriter = io.MultiWriter(logFile, os.Stdout)
+	log.SetOutput(gin.DefaultWriter)
 
 	r := gin.Default()
 
@@ -22,10 +32,12 @@ func InitRouter() *gin.Engine {
 	// curl localhost:8080/comment/4 -X GET
 	r.GET("/comment/:id", controller.GetCommentById)
 
+	// curl localhost:8080/comment -X POST -d "content=3content&article_id=article_3&comment_uid=uid_3"
+	// 新增留言
+	r.POST("/comment", controller.AddComment)
 	/*
-		// curl localhost:8080/comment -X POST -d "content=3content&article_id=article_3&comment_uid=uid_3"
-		// 新增留言
-		r.POST("/comment", controller.AddComment)
+
+
 
 		// 更新留言，比如置顶, 不显示等
 		// curl localhost:8080/comment/8 -X PUT -d '{"is_top":1}'

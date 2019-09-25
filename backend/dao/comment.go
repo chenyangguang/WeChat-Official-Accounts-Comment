@@ -1,10 +1,9 @@
 package dao
 
 import (
-	"log"
-
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load"
 	"github.com/jinzhu/gorm"
+	"strings"
 )
 
 // Comment 留言
@@ -21,19 +20,33 @@ type Comment struct {
 // GetComments Search comment by article_id
 func (c Comment) GetComments(articleId string) (comments []*Comment, err error) {
 	if err := load.Conn.Where("article_id = ? ", articleId).Find(&comments).Error; err != nil {
+		return nil, err
+	} else {
 		return comments, nil
 	}
-	log.Println("++++", err)
-	return nil, err
 }
 
-func (c Comment) GetCommentByID(id int) (*Comment, error) {
-	println("=--===", id)
-	var comment *Comment
-	if result := load.Conn.Where("id = ? ", id).First(&comment); result.Error != nil || result.RecordNotFound() {
-		log.Println("====", result, comment)
+// GetCommentByID Get one comment by primary key
+func (c Comment) GetCommentByID(id int64) (*Comment, error) {
+	comment := &Comment{}
+	if result := load.Conn.First(&comment, "id = ?", id); result.Error != nil || result.RecordNotFound() {
 		return nil, result.Error
 	} else {
 		return comment, nil
 	}
+}
+
+// AddComment add a new comment record
+func (c Comment) AddComment(commentUid, articleId, content string, parentId int) error {
+	comment := Comment{
+		Content:    strings.TrimSpace(content),
+		ArticleId:  articleId,
+		CommentUid: commentUid,
+		ParentId:   parentId,
+	}
+	if err := load.Conn.Create(&comment).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

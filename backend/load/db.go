@@ -11,7 +11,7 @@ import (
 var Conn *gorm.DB
 
 func init() {
-	conn, err := gorm.Open("mysql", "git:Git0618@/wechat_comments?charset=utf8")
+	conn, err := gorm.Open("mysql", "git:Git0618@/wechat_comments?charset=utf8&parseTime=true")
 	if err != nil {
 		log.Println("Init connect database fail:", err)
 		return
@@ -26,6 +26,7 @@ func init() {
 
 	// SetconnMaxLifetiment 设置连接的最大可复用时间。
 	conn.DB().SetConnMaxLifetime(time.Hour)
+	conn.LogMode(true)
 
 	Conn = conn
 	go func() {
