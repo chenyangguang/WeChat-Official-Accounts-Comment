@@ -1,4 +1,5 @@
-# WeChat-Official-Accounts-Comment
+# 迷你公众号留言
+
 gin 实现一个简单的 mvc 的 微信公众号留言功能后台, gorm 增\删\改\查.  MySQL存储.
 
 ## Install
