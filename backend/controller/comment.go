@@ -82,20 +82,7 @@ func UpdateComment(ctx *gin.Context) {
 		})
 		return
 	}
-	if err := ctx.BindJSON(&comment); err == nil {
-		log.Println(comment.IsTop)
-		log.Println(comment.Status)
-		log.Println(comment.CommentUid)
-		log.Println(comment.Content)
-		log.Println(comment.ParentId)
-		//comment.IsTop = comment.IsTop
-		//comment.Status = comment.Status
-		//comment.Content = comment.Content
-	} else {
-		status := ctx.Query("status")
-		println(status)
-		log.Println(status, err)
-	}
+	 ctx.BindJSON(&comment)
 
 	err = CommentDao.UpdateComment(comment)
 	if err != nil {
