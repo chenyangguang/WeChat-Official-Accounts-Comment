@@ -5,16 +5,14 @@ import (
 	"net/http"
 	"strconv"
 
+	"strings"
+
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/dao"
 	"github.com/gin-gonic/gin"
-	"strings"
 )
 
 func GetAllComments(ctx *gin.Context) {
 	articleId := strings.TrimSpace(ctx.Query("article_id"))
-	log.Println("===")
-
-	log.Println(articleId)
 	comments, err := CommentDao.GetComments(articleId)
 	if err != nil {
 		log.Println(err)
@@ -76,8 +74,6 @@ func CreateComment(ctx *gin.Context) {
 func UpdateComment(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idx, _ := strconv.ParseInt(id, 10, 64)
-	isTop := ctx.Query("is_top")
-
 	comment, err := CommentDao.GetCommentByID(idx)
 	if err != nil || comment == nil {
 		ctx.JSON(http.StatusOK, gin.H{
@@ -86,8 +82,21 @@ func UpdateComment(ctx *gin.Context) {
 		})
 		return
 	}
-	istop, _ := strconv.Atoi(isTop)
-	comment.IsTop = istop
+	if err := ctx.BindJSON(&comment); err == nil {
+		log.Println(comment.IsTop)
+		log.Println(comment.Status)
+		log.Println(comment.CommentUid)
+		log.Println(comment.Content)
+		log.Println(comment.ParentId)
+		//comment.IsTop = comment.IsTop
+		//comment.Status = comment.Status
+		//comment.Content = comment.Content
+	} else {
+		status := ctx.Query("status")
+		println(status)
+		log.Println(status, err)
+	}
+
 	err = CommentDao.UpdateComment(comment)
 	if err != nil {
 		ctx.JSON(http.StatusOK, gin.H{
