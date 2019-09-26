@@ -2,13 +2,14 @@ package main
 
 import (
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/router"
-	"os"
 	"github.com/gin-gonic/gin"
 	"io"
 	"log"
+	"os"
+	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/config"
 )
 
-func initLogConfig () {
+func initLogConfig() {
 	logFile, err := os.Create("gin.log")
 	if err != nil {
 		panic(err)
@@ -20,5 +21,5 @@ func initLogConfig () {
 func main() {
 	initLogConfig()
 	r := router.InitRouter()
-	r.Run()
+	r.Run(config.PORT)
 }

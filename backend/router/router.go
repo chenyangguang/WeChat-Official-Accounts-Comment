@@ -5,22 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/controller"
-	"io"
-	"log"
-	"os"
 )
 
-func initLogfile() {
-	logFile, err := os.Create("gin.log")
-	if err != nil {
-		panic(err)
-	}
-	gin.DefaultWriter = io.MultiWriter(logFile, os.Stdout)
-	log.SetOutput(gin.DefaultWriter)
-
-}
 func InitRouter() *gin.Engine {
-	initLogfile()
 
 	r := gin.Default()
 	v1 := r.Group("/v1")
@@ -31,8 +18,7 @@ func InitRouter() *gin.Engine {
 		v1.PUT("/comment/:id", controller.UpdateComment)
 		v1.DELETE("/comment/:id", controller.DeleteComment)
 	}
-	v1.Use(middleware.AuthMiddleware(),middleware.RequestIdMiddleware())
+	v1.Use(middleware.LogMiddleware(), middleware.AuthMiddleware(), middleware.RequestIdMiddleware())
 
 	return r
-
 }
