@@ -3,7 +3,6 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
-	"log"
 )
 
 func RequestIdMiddleware() gin.HandlerFunc {
@@ -17,18 +16,12 @@ func RequestIdMiddleware() gin.HandlerFunc {
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		accessToken := ctx.Query("access_token")
-
+		accessToken := ctx.Request.FormValue("access_token")
 		if accessToken == "" {
-			responseWithoutAuth(401, "Required grant token", ctx)
-			return
-		} else {
-			log.Println(accessToken)
-		}
-		if token := ctx.Request.URL.Query().Get("token"); token == "" {
-			responseWithoutAuth(402, "aaa", ctx)
+			responseWithoutAuth(401, "Required access token", ctx)
 			return
 		}
+
 		ctx.Next()
 	}
 }
@@ -41,4 +34,3 @@ func responseWithoutAuth(code int, message interface{}, ctx *gin.Context) {
 	ctx.JSON(code, resp)
 	ctx.Abort()
 }
-

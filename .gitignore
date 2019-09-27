@@ -2,7 +2,8 @@
 vendor/github.com/*  
 vendor/golang.org/*
 vendor/gopkg.in/*
-backend/gin.log
+
+backend/runtime
 backend/comment.exe
 backend/comment
 backend/main
