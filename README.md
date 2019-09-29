@@ -1,5 +1,5 @@
 # 迷你公众号留言
-[![Go Report Card](https://goreportcard.com/badge/github.com/chenyangguang/WeChat-Official-Accounts-Comment)]
+[![Go Report Card](https://goreportcard.com/badge/github.com/chenyangguang/WeChat-Official-Accounts-Comment)](https://travis-ci.org/chenyangguang/WeChat-Official-Accounts-Comment)
 
 
 gin 实现一个简单的 mvc 的 微信公众号留言功能后台, gorm 增\删\改\查.  MySQL存储.
