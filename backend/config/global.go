@@ -1,7 +1,7 @@
 package config
 
 const (
-	PORT        = ":8080"
+	Port        = ":8080"
 	LogFileName = "gin.log"
 	LogLevel    = "DebugLevel"
 )
