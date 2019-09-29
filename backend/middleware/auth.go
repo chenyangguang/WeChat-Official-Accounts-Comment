@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/handler"
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
 )
@@ -22,6 +23,13 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
+		token, err := handler.Wc.GetAccessToken()
+		if err != nil {
+			responseWithoutAuth(401, err.Error(), ctx)
+		}
+		if accessToken != token {
+			responseWithoutAuth(403, "Invalid token", ctx)
+		}
 		ctx.Next()
 	}
 }
