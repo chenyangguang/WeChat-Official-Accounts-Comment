@@ -5,6 +5,14 @@
 
 gin 实现一个简单的 mvc 的 微信公众号留言功能后台, gorm 增\删\改\查.  MySQL存储.
 
+## Require 
+1. go get github.com/gin-gonic/gin
+2. go get github.com/gomodule/redigo/redis
+3. go get github.com/bradfitz/gomemcache/memcache
+4. go get golang.org/x/crypto/pkcs12c
+5. go get github.com/satori/go.uuid
+6. go get github.com/silenceper/wechat
+
 ## Install
 
 ```
