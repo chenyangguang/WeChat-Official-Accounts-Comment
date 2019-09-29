@@ -1,5 +1,5 @@
 # 迷你公众号留言
-[![Go Report Card](https://goreportcard.com/badge/github.com/chenyangguang/WeChat-Official-Accounts-Comment)](https://travis-ci.org/chenyangguang/WeChat-Official-Accounts-Comment)
+[![Go Report Card](https://travis-ci.org/silenceper/wechat.svg?branch=master)](https://travis-ci.org/chenyangguang/WeChat-Official-Accounts-Comment)
 [![Go Report Card](https://goreportcard.com/badge/github.com/chenyangguang/WeChat-Official-Accounts-Comment)](https://goreportcard.com/report/github.com/chenyangguang/WeChat-Official-Accounts-Comment)
 
 
