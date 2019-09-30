@@ -8,6 +8,7 @@ import (
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load/log"
 )
 
+// InitRouter 统一管理路由
 func InitRouter() *gin.Engine {
 	log.InitLog()
 

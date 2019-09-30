@@ -11,6 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetAllComments 获取所有留言
+// todo 应该改成分页
 func GetAllComments(ctx *gin.Context) {
 	articleId := strings.TrimSpace(ctx.Query("article_id"))
 	comments, err := CommentDao.GetComments(articleId)
@@ -30,6 +32,7 @@ func GetAllComments(ctx *gin.Context) {
 	})
 }
 
+// GetCommentById 获取单条留言
 func GetCommentById(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idx, _ := strconv.ParseInt(id, 10, 64)
@@ -54,6 +57,7 @@ func GetCommentById(ctx *gin.Context) {
 
 }
 
+// CreateComment 写留言
 func CreateComment(ctx *gin.Context) {
 	commentUid := ctx.PostForm("comment_uid")
 	articleId := ctx.PostForm("article_id")
@@ -74,6 +78,7 @@ func CreateComment(ctx *gin.Context) {
 	})
 }
 
+// UpdateComment 更新留言信息
 func UpdateComment(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idx, _ := strconv.ParseInt(id, 10, 64)
@@ -103,6 +108,7 @@ func UpdateComment(ctx *gin.Context) {
 	})
 }
 
+// DeleteComment 删除留言
 func DeleteComment(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idx, _ := strconv.ParseInt(id, 10, 64)

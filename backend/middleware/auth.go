@@ -8,6 +8,7 @@ import (
 	"github.com/silenceper/wechat"
 )
 
+// RequestIdMiddleware 防一下
 func RequestIdMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		random, _ := uuid.NewV4()
@@ -17,6 +18,7 @@ func RequestIdMiddleware() gin.HandlerFunc {
 	}
 }
 
+// AuthMiddleware 认证中间件
 func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		accessToken := ctx.Request.FormValue("access_token")
