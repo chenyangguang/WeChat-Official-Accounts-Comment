@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load"
+	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load/log"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -17,7 +17,7 @@ func LogMiddleware() gin.HandlerFunc {
 		reqUri := c.Request.RequestURI
 		statusCode := c.Writer.Status()
 		clientIP := c.ClientIP()
-		load.Logger.Infof("| %3d | %13v | %15s | %s | %s |",
+		log.Logger.Infof("| %3d | %13v | %15s | %s | %s |",
 			statusCode,
 			latencyTime,
 			clientIP,

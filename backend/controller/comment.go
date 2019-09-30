@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/dao"
-	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load"
+	"github.com/chenyangguang/WeChat-Official-Accounts-Comment/backend/load/log"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,7 @@ func GetAllComments(ctx *gin.Context) {
 	articleId := strings.TrimSpace(ctx.Query("article_id"))
 	comments, err := CommentDao.GetComments(articleId)
 	if err != nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    1002,
 			"message": "Query comment fail",
@@ -35,7 +35,7 @@ func GetCommentById(ctx *gin.Context) {
 	idx, _ := strconv.ParseInt(id, 10, 64)
 
 	if comment, err := CommentDao.GetCommentByID(idx); err != nil || comment == nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    1001,
 			"message": "Record not found ",
@@ -43,7 +43,7 @@ func GetCommentById(ctx *gin.Context) {
 		})
 		return
 	} else {
-		load.Logger.Info(comment)
+		log.Logger.Info(comment)
 
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    0,
@@ -62,7 +62,7 @@ func CreateComment(ctx *gin.Context) {
 
 	// todo check parent comment id
 	if err := CommentDao.Create(commentUid, articleId, content, parentId); err != nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		ctx.JSON(1001, gin.H{
 			"message": "Create comment fail",
 		})
@@ -79,7 +79,7 @@ func UpdateComment(ctx *gin.Context) {
 	idx, _ := strconv.ParseInt(id, 10, 64)
 	comment, err := CommentDao.GetCommentByID(idx)
 	if err != nil || comment == nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    1003,
 			"message": "Record not found",
@@ -90,7 +90,7 @@ func UpdateComment(ctx *gin.Context) {
 
 	err = CommentDao.UpdateComment(comment)
 	if err != nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		ctx.JSON(http.StatusOK, gin.H{
 			"code":    1005,
 			"message": "Update comment fail",
@@ -112,14 +112,14 @@ func DeleteComment(ctx *gin.Context) {
 	defer ctx.JSON(http.StatusOK, response)
 
 	if comment, err := CommentDao.GetCommentByID(idx); err != nil || comment == nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		response["code"] = 1003
 		response["message"] = "Record not found"
 		return
 	}
 	err = CommentDao.Delete(&comment)
 	if err != nil {
-		load.Logger.Info(err)
+		log.Logger.Info(err)
 		response["code"] = 1006
 		response["message"] = "Delete comment fail."
 		return
