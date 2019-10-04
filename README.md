@@ -13,6 +13,45 @@ gin 实现一个简单的 mvc 的 微信公众号留言功能后台, gorm 增\�
 5. go get github.com/satori/go.uuid
 6. go get github.com/silenceper/wechat
 
+
+## 目录结构 
+
+```
+├── LICENSE
+├── README.md
+├── backend
+│   ├── comment
+│   ├── config
+│   │   ├── cache.go
+│   │   ├── global.go
+│   │   └── weixin.go
+│   ├── controller
+│   │   ├── base.go
+│   │   └── comment.go
+│   ├── dao
+│   │   ├── comment.go
+│   │   └── user.go
+│   ├── gin.log
+│   ├── handler
+│   │   └── wechat.go
+│   ├── load
+│   │   ├── cache.go
+│   │   ├── db.go
+│   │   └── log
+│   │       └── log.go
+│   ├── main.go
+│   ├── middleware
+│   │   ├── auth.go
+│   │   └── log.go
+│   ├── router
+│   │   └── router.go
+│   └── vendor
+│       └── vendor.json
+├── database
+│   └── comments_db.sql
+└── runtime
+    └── gin.log
+```
 ## Install
 
 ```
