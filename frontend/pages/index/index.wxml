@@ -43,7 +43,7 @@
     </view> 
     <view class='center-space'></view>
 
-    <block wx:for="{{gongMessage}}" wx:for-item="item">
+    <block wx:key="{{gongMessage}}" wx:key-item="item">
       <view class='center-space-gong'></view>
       <!-- 公众号信息 -->
       <view class='gong-content' bindtap='to_articel_list' data-index="{{index}}" bindlongtap='copy' bindtouchend="touchend">

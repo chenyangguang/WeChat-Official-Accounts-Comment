@@ -6,3 +6,5 @@ time="2019-10-29 18:37:23" level=info msg="| 404 |       3.872µs |       127.0.
 time="2019-10-29 18:37:32" level=info msg="| 401 |     129.158µs |       127.0.0.1 | GET | /v1/comments |"
 time="2019-10-29 18:37:45" level=info msg="{{0 }  0} Get https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx68d2ae3b8981b62b&secret=your secret : net/http: HTTP/1.x transport connection broken: malformed HTTP status code \"HTTP/1.1\""
 time="2019-10-29 18:37:45" level=info msg="| 200 |  497.608113ms |       127.0.0.1 | GET | /v1/comments?access_token=423342 |"
+time="2019-10-29 18:43:05" level=info msg="{{0 }  0} Get https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx68d2ae3b8981b62b&secret=your secret : net/http: HTTP/1.x transport connection broken: malformed HTTP status code \"HTTP/1.1\""
+time="2019-10-29 18:43:05" level=info msg="| 200 |  289.198547ms |       127.0.0.1 | GET | /v1/comments?access_token=423342 |"

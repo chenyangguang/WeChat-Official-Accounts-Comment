@@ -125,5 +125,5 @@ go build -o comment main.go && ./comment.exe
 ## 实现
 
 1. 后端完全使用 golang 实现
-2. 前端绝大部分是借鉴[luxiangqiang ](https://github.com/luxiangqiang/WeiXin_MessageApplet "luxiangqiang") https://github.com/luxiangqiang/WeiXin_MessageApplet 的界面
+2. 前端绝大部分是借鉴[luxiangqiang ](https://github.com/luxiangqiang/WeiXin_MessageApplet "luxiangqiang") 的界面
 
