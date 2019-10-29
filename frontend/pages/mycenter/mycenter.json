@@ -1,7 +1,8 @@
 {
+
   "backgroundTextStyle": "light",
   "navigationBarBackgroundColor": "#2c2d31",
-  "navigationBarTitleText": "小鹿留言助手",
+  "navigationBarTitleText": "文章管理",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true
 }

@@ -40,7 +40,6 @@ gin 实现一个简单的 mvc 的 微信公众号留言功能后台, gorm 增\�
 │   │   ├── cache.go
 │   │   ├── db.go
 │   │   └── log
-│   │       └── log.go
 │   ├── main.go
 │   ├── middleware
 │   │   ├── auth.go
@@ -51,6 +50,35 @@ gin 实现一个简单的 mvc 的 微信公众号留言功能后台, gorm 增\�
 │       └── vendor.json
 ├── database
 │   └── comments_db.sql
+├── frontend
+│   ├── app.js
+│   ├── app.json
+│   ├── app.wxss
+│   ├── images
+│   │   ├── 2.jpg
+│   │   ├── zan1.png
+│   │   ├── zan2.png
+│   │   └── 主页.png
+│   ├── pages
+│   │   ├── artical
+│   │   ├── index
+│   │   ├── logs
+│   │   ├── lookmessage
+│   │   ├── message
+│   │   ├── myartical
+│   │   ├── mycenter
+│   │   ├── select
+│   │   └── write
+│   ├── project.config.json
+│   ├── sitemap.json
+│   ├── utils
+│   │   └── util.js
+│   ├── weui.wxss
+│   └── wxSearch
+│       ├── images
+│       ├── wxSearch.js
+│       ├── wxSearch.wxml
+│       └── wxSearch.wxss
 └── runtime
     └── gin.log
 ```
@@ -96,5 +124,6 @@ go build -o comment main.go && ./comment.exe
 
 ## 实现
 
-后端完全使用 golang 实现
+1. 后端完全使用 golang 实现
+2. 前端绝大部分是借鉴[luxiangqiang ](https://github.com/luxiangqiang/WeiXin_MessageApplet "luxiangqiang") https://github.com/luxiangqiang/WeiXin_MessageApplet 的界面
 

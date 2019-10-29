@@ -1,12 +1,18 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/mycenter/mycenter",
+    "pages/select/select",
+    "pages/lookmessage/lookmessage",
+    "pages/myartical/myartical",
+    "pages/message/message",
+    "pages/write/write",
+    "pages/artical/artical"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#2c2d31",
+    "navigationBarTitleText": "小鹿留言板",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

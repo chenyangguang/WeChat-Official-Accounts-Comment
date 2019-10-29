@@ -1,0 +1,8 @@
+time="2019-10-29 18:36:22" level=info msg="| 404 |     130.073µs |       127.0.0.1 | GET | / |"
+time="2019-10-29 18:36:22" level=info msg="| 404 |       3.613µs |       127.0.0.1 | GET | /favicon.ico |"
+time="2019-10-29 18:36:28" level=info msg="| 404 |       3.389µs |       127.0.0.1 | GET | / |"
+time="2019-10-29 18:36:36" level=info msg="| 404 |       3.613µs |       127.0.0.1 | GET | / |"
+time="2019-10-29 18:37:23" level=info msg="| 404 |       3.872µs |       127.0.0.1 | GET | /comments |"
+time="2019-10-29 18:37:32" level=info msg="| 401 |     129.158µs |       127.0.0.1 | GET | /v1/comments |"
+time="2019-10-29 18:37:45" level=info msg="{{0 }  0} Get https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx68d2ae3b8981b62b&secret=your secret : net/http: HTTP/1.x transport connection broken: malformed HTTP status code \"HTTP/1.1\""
+time="2019-10-29 18:37:45" level=info msg="| 200 |  497.608113ms |       127.0.0.1 | GET | /v1/comments?access_token=423342 |"
